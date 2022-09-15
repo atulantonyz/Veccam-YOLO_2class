@@ -7,7 +7,7 @@ from torchvision import transforms
  
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model= torch.load('./Species.pt')
+  model= torch.load('model/Species.pt')
   return model
 
 with st.spinner('Model is being loaded..'):
