@@ -5,18 +5,25 @@ import numpy as np
 import torch
 from torchvision import transforms
  
-@st.cache(allow_output_mutation=True)
-def load_model():
-  model= torch.load('./Species.pt')
-  return model
 
-with st.spinner('Model is being loaded..'):
-  model=load_model()
+
  
 st.write("""
          # Image Classification
          """
          )
+
+@st.cache(allow_output_mutation=True)
+def load_model():
+  model= torch.load('model/Species.pt')
+  if model:
+    st.write(""" # Got it""")
+  else:
+    st.write(""" # Got it""")
+  return model
+
+with st.spinner('Model is being loaded..'):
+  model=load_model()
  
 file = st.file_uploader("Upload the image to be classified U0001F447", type=["jpg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
