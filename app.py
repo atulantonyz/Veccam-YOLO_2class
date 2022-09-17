@@ -12,7 +12,7 @@ st.write("""
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model= torch.load('model/Species.pt')
+  model= torch.load('model/Species.pt', map_location=torch.device('cpu'))
   if model:
     st.write(""" # Got it""")
   else:
