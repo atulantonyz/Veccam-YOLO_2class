@@ -14,7 +14,7 @@ device=torch.device("cpu")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model= torch.load('model/Species.pt')
+  model= torch.load('model/Species.pt', map_location = 'cpu')
   if model:
     st.write(""" # Got it""")
   else:
