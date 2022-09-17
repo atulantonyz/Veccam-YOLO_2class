@@ -6,7 +6,7 @@ import torch
 from torchvision import transforms
  
 st.write("""
-         # Image Classification
+         # MosquitoNet Classification
          """
          )
 
@@ -15,10 +15,6 @@ device=torch.device("cpu")
 @st.cache(allow_output_mutation=True)
 def load_model():
   model= torch.load('model/Species.pt', map_location = 'cpu')
-  if model:
-    st.write(""" # Got it""")
-  else:
-    st.write(""" # Nope""")
   model = model.module.to(device)
   return model
 
@@ -69,4 +65,4 @@ else:
     score= 0.9 #np.round(predictions[0][0][2]) 
     st.write("The image is classified as",image_class)
     # st.write("The similarity score is approximately",score)
-    print("The image is classified as ",image_class, "with a similarity score of",score)
+    print("The image is classified as ",image_class) #, "with a similarity score of",score)
