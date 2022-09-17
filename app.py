@@ -10,17 +10,22 @@ st.write("""
          """
          )
 
+device=torch.device("cpu")
+
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model= torch.load('model/Species.pt', map_location=torch.device('cpu'))
+  model= torch.load('model/Species.pt')
   if model:
     st.write(""" # Got it""")
   else:
     st.write(""" # Nope""")
+  model = model.module.to(device)
   return model
 
 with st.spinner('Model is being loaded..'):
   model=load_model()
+#   model.cpu()
+#   torch.save(model, 'sp_cpu.pt')
  
 file = st.file_uploader("Upload the image to be classified U0001F447", type=["jpg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -32,7 +37,7 @@ mosquito_transforms = transforms.Compose([
     #transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
 ])
 
-device=torch.device("cpu")
+
 
 def load_image(image):
     image = mosquito_transforms(image)
