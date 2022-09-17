@@ -5,9 +5,6 @@ import numpy as np
 import torch
 from torchvision import transforms
  
-
-
- 
 st.write("""
          # Image Classification
          """
@@ -19,7 +16,7 @@ def load_model():
   if model:
     st.write(""" # Got it""")
   else:
-    st.write(""" # Got it""")
+    st.write(""" # Nope""")
   return model
 
 with st.spinner('Model is being loaded..'):
