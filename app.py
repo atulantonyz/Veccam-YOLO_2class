@@ -21,8 +21,6 @@ def load_model():
 
 with st.spinner('Model is being loaded..'):
   model=load_model()
-#   model.cpu()
-#   torch.save(model, 'sp_cpu.pt')
  
 file = st.file_uploader("Upload the image to be classified", type=["jpg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -69,7 +67,7 @@ def upload_predict(upload_image, model):
     return species_all[pred_arr[0]]
 
 if file is None:
-    st.text("Please upload an image file")
+    st.text(" ###### Please upload an image file!")
 else:
     image = Image.open(file)
 
