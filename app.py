@@ -9,7 +9,7 @@ import torch.nn.functional as F
  
 st.write("""
          # MosquitoNet Classification V4
-         ### Hierarchical classification of mosquitos
+         ### Hierarchical classification of mosquitos - An . stephensi
          """
          )
 
