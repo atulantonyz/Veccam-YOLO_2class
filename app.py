@@ -23,7 +23,7 @@ def load_genus_model():
 
 @st.cache(allow_output_mutation=True)
 def load_species_model():
-  model= torch.load('model/species_model.pt', map_location = 'cpu')
+  model= torch.load('model/steph_onevsall.pt', map_location = 'cpu')
   model = model.to(device)
   return model
 
@@ -47,11 +47,7 @@ def preprocess_image(image):
 
 genus_all = ["Anopheles","Culex","Other"]
  
-species_all = ["An. funestus",
-                "An. gambiae",
-                "An. other",
-                "Culex",
-                "Other"]
+species_all = ["Not Stephensi", "Stephensi"]
 
 
 
