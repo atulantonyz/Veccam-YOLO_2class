@@ -7,7 +7,7 @@ from torchvision import transforms
 import torch.nn.functional as F
  
 st.write("""
-         # MosquitoNet Classification - Jan 23
+         # MosquitoNet Classification - Mar 23
          """
          )
 
@@ -15,7 +15,7 @@ device=torch.device("cpu")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model= torch.load('model/nonparallelmodel.pt', map_location = 'cpu')
+  model= torch.jit.load('model/species_03_16_23.ptl', map_location = 'cpu')
   model = model.to(device)
   return model
 
