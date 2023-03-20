@@ -9,7 +9,7 @@ from util_functions import pad_image_to_square
 import cv2
  
 st.write("""
-         # MosquitoNet Classification - V4.3 -  Yolo Testing 
+         # MosquitoNet Classification - V5 -  Yolo Included 
          """
          )
 
@@ -36,7 +36,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 basicTrans = transforms.Compose([ 
                                 transforms.Resize([300,300]),
                                 transforms.ToTensor(),
-                                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+                                # transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
                                 ])    
 
 def yolo_crop(image):
@@ -76,19 +76,13 @@ def upload_predict(upload_image, model):
     
     # get softmax of output
 
-    output = F.softmax(output, dim=1)
+    # output = F.softmax(output, dim=1)
 
     probab, pred = torch.max(output, 1)
     print(output, pred, probab, probab.item())
     pred_class = pred.item()
     probab_value = probab.item()
     return pred_class, probab_value
-
-    probabilities = model(inputs.unsqueeze(0).to(device))
-
-    _, predicted = torch.max(probabilities.data, 1)
-    pred_arr = predicted.cpu().detach().numpy()
-    return species_all[pred_arr[0]]
 
 if file is None:
     st.text(" ###### Please upload an image file!")
@@ -111,7 +105,7 @@ else:
     st.write("### Shape of the image is", yolo_cropped_image.size)
 
     ### PAD IMAGE
-    image = pad_image_to_square(yolo_cropped_image)
+    image = pad_image_to_square(image)
     st.write("### Padded Image")
     image_disp = image.copy()
     image_disp.thumbnail(max_size)
