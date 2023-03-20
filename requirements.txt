@@ -3,3 +3,4 @@ torch
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torchvision
 mysql-connector-python
+opencv-python
