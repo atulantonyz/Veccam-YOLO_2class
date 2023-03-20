@@ -5,9 +5,10 @@ import numpy as np
 import torch
 from torchvision import transforms
 import torch.nn.functional as F
+from util_functions import pad_image_to_square
  
 st.write("""
-         # MosquitoNet Classification - Mar 23
+         # MosquitoNet Classification - V4 -  Yolo Included
          """
          )
 
@@ -19,11 +20,17 @@ def load_model():
   model = model.to(device)
   return model
 
+@st.cache(allow_output_mutation=True)
+def load_yolo():
+  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/yoloV5trained.pt', force_reload=True)
+  return yolo
+
 with st.spinner('Model is being loaded..'):
   model=load_model()
  
 file = st.file_uploader("Upload the image to be classified", type=["jpg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
+
 
 basicTrans = transforms.Compose([ 
                                 transforms.Resize([300,300]),
@@ -31,7 +38,23 @@ basicTrans = transforms.Compose([
                                 transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
                                 ])    
 
+def yolo_crop(image):
+    yolo = load_yolo()
+    results = yolo(image)
+    try: 
+       # crop the image
+        x1 = int(results.xyxy[0].numpy()[0][0])
+        y1 = int(results.xyxy[0].numpy()[0][1])
+        x2 = int(results.xyxy[0].numpy()[0][2])
+        y2 = int(results.xyxy[0].numpy()[0][3])
 
+        im_crop = image.crop((x1, y1, x2, y2))
+        print("Image cropped successfully!")
+        return im_crop
+
+    except:
+       st.write("No mosquito detected")
+    return image
 
 def preprocess_image(image):
     image = basicTrans(image)
@@ -77,12 +100,24 @@ else:
     # Resize the image
     max_size = (400, 400)
     image_disp.thumbnail(max_size)
-
+    st.write("### Uploaded Image")
     st.image(image_disp, use_column_width= False)
+
+    ### YOLO CROP
+    yolo_cropped_image = yolo_crop(image)
+    st.write("### Cropped Image")
+    # st.write shape of image
+    st.write("### Shape of the image is", yolo_cropped_image.size)
+
+    ### PAD IMAGE
+    image = pad_image_to_square(yolo_cropped_image)
+    st.write("### Padded Image")
+    image_disp = image.copy()
+    image_disp.thumbnail(max_size)
+    st.image(image_disp, use_column_width= False)
+
+    ### CLASSIFY
     label, score = upload_predict(image, model)
-    image_class = label #'mosquito' #str(predictions[0][0][1])
+    image_class = label 
     st.write("### The image is classified as",species_all[image_class])
     st.write(f"#### The similarity score is approximately : {score*100:.2f} % ")
-    # if score < 0.8:
-    #     st.write("##### Confidence is below 80% - please upload a clearer image")
-    print("The image is classified as ",image_class) #, "with a similarity score of",score)
