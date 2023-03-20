@@ -6,9 +6,10 @@ import torch
 from torchvision import transforms
 import torch.nn.functional as F
 from util_functions import pad_image_to_square
+import cv2
  
 st.write("""
-         # MosquitoNet Classification - V4 -  Yolo Testing
+         # MosquitoNet Classification - V4.1 -  Yolo Testing 
          """
          )
 
