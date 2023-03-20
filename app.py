@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from util_functions import pad_image_to_square
  
 st.write("""
-         # MosquitoNet Classification - V4 -  Yolo Included
+         # MosquitoNet Classification - V4 -  Yolo Testing
          """
          )
 
