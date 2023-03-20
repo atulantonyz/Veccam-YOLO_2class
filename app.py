@@ -9,7 +9,7 @@ from util_functions import pad_image_to_square
 import cv2
  
 st.write("""
-         # MosquitoNet Classification - V5 -  Yolo Included 
+         # MosquitoNet Classification - V6 -  Yolo Included 
          """
          )
 
@@ -105,7 +105,7 @@ else:
     st.write("### Shape of the image is", yolo_cropped_image.size)
 
     ### PAD IMAGE
-    image = pad_image_to_square(image)
+    image = pad_image_to_square(yolo_cropped_image)
     st.write("### Padded Image")
     image_disp = image.copy()
     image_disp.thumbnail(max_size)
