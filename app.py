@@ -5,10 +5,9 @@ import numpy as np
 import torch
 from torchvision import transforms
 import torch.nn.functional as F
-import mysql.connector
  
 st.write("""
-         # MosquitoNet Classification V3
+         # MosquitoNet Classification - Mar 23
          """
          )
 
@@ -16,7 +15,7 @@ device=torch.device("cpu")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model= torch.load('model/nonparallelmodel.pt', map_location = 'cpu')
+  model= torch.jit.load('model/species_03_16_23.ptl', map_location = 'cpu')
   model = model.to(device)
   return model
 
@@ -33,6 +32,7 @@ basicTrans = transforms.Compose([
                                 ])    
 
 
+
 def preprocess_image(image):
     image = basicTrans(image)
     return image
@@ -42,30 +42,6 @@ species_all = ["An. funestus",
                 "An. other",
                 "Culex",
                 "Other"]
-
-
-
-def save_to_database(image_file, label, probab):
-    # Connect to the database
-    print('trying to insert into database')
-    connection = mysql.connector.connect(
-        host=st.secrets["host"],
-        user=st.secrets["user"],
-        password=st.secrets["password"],
-        database=st.secrets["database"]
-    )
-
-    cursor = connection.cursor()
-    print('connected to database')
-    # Insert the data into the table
-    insert_command = f"INSERT INTO `app_runs` (`id`, `imagename`, `prediction`, `probability`, `datetime`) VALUES ('', '{image_file}', '{label}', '{probab}' , CURRENT_TIMESTAMP);"
-    
-    cursor.execute(insert_command)
-
-    connection.commit()
-    print('inserted into database')
-    cursor.close()
-    connection.close()
 
 def upload_predict(upload_image, model):
     inputs = preprocess_image(upload_image)
@@ -104,7 +80,9 @@ else:
 
     st.image(image_disp, use_column_width= False)
     label, score = upload_predict(image, model)
-    image_class = label 
-    save_to_database(file.name, species_all[image_class], score*100)
+    image_class = label #'mosquito' #str(predictions[0][0][1])
     st.write("### The image is classified as",species_all[image_class])
     st.write(f"#### The similarity score is approximately : {score*100:.2f} % ")
+    # if score < 0.8:
+    #     st.write("##### Confidence is below 80% - please upload a clearer image")
+    print("The image is classified as ",image_class) #, "with a similarity score of",score)
