@@ -9,7 +9,7 @@ from util_functions import pad_image_to_square
 import cv2
  
 st.write("""
-         # MosquitoNet Classification - V6 -  Yolo Included 
+         # MosquitoNet Classification - V7 -  Yolo (zoomed out) Included 
          """
          )
 
