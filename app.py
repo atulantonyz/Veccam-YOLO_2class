@@ -23,7 +23,7 @@ def load_model():
 
 @st.cache(allow_output_mutation=True)
 def load_yolo():
-  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/yoloV5trained.pt', force_reload=True)
+  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/YoloV5working.pt', force_reload=True)
   return yolo
 
 with st.spinner('Model is being loaded..'):
