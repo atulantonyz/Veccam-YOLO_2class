@@ -9,7 +9,7 @@ from util_functions import pad_image_to_square
 import cv2
  
 st.write("""
-         # MosquitoNet Classification - V7 -  Yolo (zoomed out) Included 
+         # MosquitoNet Classification - V8 -  Yolo (zoomed out) Included 
          """
          )
 
@@ -24,6 +24,7 @@ def load_model():
 @st.cache(allow_output_mutation=True)
 def load_yolo():
   yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/YoloV5working.pt', force_reload=True)
+  yolo.to('cpu')
   return yolo
 
 with st.spinner('Model is being loaded..'):
@@ -44,12 +45,12 @@ def yolo_crop(image):
     results = yolo(image)
     try: 
        # crop the image
-        x1 = int(results.xyxy[0].numpy()[0][0])
-        y1 = int(results.xyxy[0].numpy()[0][1])
-        x2 = int(results.xyxy[0].numpy()[0][2])
-        y2 = int(results.xyxy[0].numpy()[0][3])
+        xmin = int(results.xyxy[0].numpy()[0][0])
+        ymin = int(results.xyxy[0].numpy()[0][1])
+        xmax = int(results.xyxy[0].numpy()[0][2])
+        ymax = int(results.xyxy[0].numpy()[0][3])
 
-        im_crop = image.crop((x1, y1, x2, y2))
+        im_crop = image.crop((ymin, image.size[1] - xmax, ymax , image.size[1] - xmin))
         print("Image cropped successfully!")
         return im_crop
 
