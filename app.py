@@ -45,14 +45,10 @@ def yolo_crop(image):
     results = yolo(image)
     try: 
        # crop the image
-        x = int(results.xyxy[0].numpy()[0][0])
-        y = int(results.xyxy[0].numpy()[0][1])
-        w = int(results.xyxy[0].numpy()[0][2])
-        h = int(results.xyxy[0].numpy()[0][3])
-        xmin = x-w/2
-        ymin = y-h/2
-        xmax = x+w/2
-        ymax = y+h/2
+        xmin = int(results.xyxy[0].numpy()[1][0])
+        ymin = int(results.xyxy[0].numpy()[1][1])
+        xmax= int(results.xyxy[0].numpy()[1][2])
+        ymax = int(results.xyxy[0].numpy()[1][3])
 
         im_crop = image.crop((ymin, image.size[1] - xmax, ymax , image.size[1] - xmin))
         print("Image cropped successfully!")
