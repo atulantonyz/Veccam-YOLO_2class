@@ -52,7 +52,7 @@ def yolo_crop(image):
 
         im_crop = image.crop((ymin, image.size[1]-xmax, ymax , image.size[1]-xmin))
         print("Image cropped successfully!")
-        return results.xyxy[0])
+        return results.xyxy[0]
         #return im_crop
 
     except:
