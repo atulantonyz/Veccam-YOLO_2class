@@ -10,7 +10,7 @@ import cv2
 import easyocr
  
 st.write("""
-         # MosquitoNet Classification - V8 -  Yolo (zoomed out) Included 
+         # MosquitoNet Classification - YOLO_2_class + OCR 
          """
          )
 
