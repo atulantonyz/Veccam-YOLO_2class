@@ -146,7 +146,7 @@ if file is None:
     st.text(" ###### Please upload an image file!")
 else:
     image = Image.open(file)
-
+    image = image.resize((640,640))   #resize input to size YOLO model was trained on
     # Open the image
     image_disp = image.copy()
 
