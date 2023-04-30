@@ -52,8 +52,8 @@ def yolo_crop(image):
 
         im_crop = image.crop((ymin, image.size[1]-xmax, ymax , image.size[1]-xmin))
         print("Image cropped successfully!")
-        print(results.xyxy[0])
-        return im_crop
+        return results.xyxy[0])
+        #return im_crop
 
     except:
        st.write("No mosquito detected")
@@ -102,19 +102,20 @@ else:
 
     ### YOLO CROP
     yolo_cropped_image = yolo_crop(image)
+    st.write(yolo_cropped_image)
     st.write("### Cropped Image")
     # st.write shape of image
-    st.write("### Shape of the image is", yolo_cropped_image.size)
+    st.write("### Shape of the image is", image.size)
 
     ### PAD IMAGE
-    image = pad_image_to_square(yolo_cropped_image)
+    #image = pad_image_to_square(yolo_cropped_image)
     st.write("### Padded Image")
     image_disp = image.copy()
     image_disp.thumbnail(max_size)
     st.image(image_disp, use_column_width= False)
 
     ### CLASSIFY
-    label, score = upload_predict(image, model)
-    image_class = label 
-    st.write("### The image is classified as",species_all[image_class])
-    st.write(f"#### The similarity score is approximately : {score*100:.2f} % ")
+    #label, score = upload_predict(image, model)
+    #image_class = label 
+    #st.write("### The image is classified as",species_all[image_class])
+    #st.write(f"#### The similarity score is approximately : {score*100:.2f} % ")
