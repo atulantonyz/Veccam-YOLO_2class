@@ -26,7 +26,11 @@ tensorboard>=2.4.1
 # comet
 
 # Plotting --------------------------------------------------------------------
-pandas>=1.1.4
+pandas>=1.1.4python-bidi
+PyYAML
+Shapely
+pyclipper
+ninja
 seaborn>=0.11.0
 
 # Export ----------------------------------------------------------------------
@@ -51,3 +55,4 @@ setuptools>=65.5.1 # Snyk vulnerability fix
 # pycocotools>=2.0.6  # COCO mAP
 # roboflow
 # ultralytics  # HUB https://hub.ultralytics.com
+easyocr
