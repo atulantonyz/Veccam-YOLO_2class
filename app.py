@@ -36,7 +36,7 @@ def load_yolo():
   Returns:
       yolo: A TorchHub model object representing the YOLOv5 model.
   """
-  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='models/YOLO_wlabel.pt', force_reload=True)
+  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/best.pt', force_reload=True)
   yolo.to('cpu')
   return yolo
 
