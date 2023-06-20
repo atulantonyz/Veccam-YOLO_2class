@@ -104,7 +104,7 @@ def yolo_crop(image):#0 for specimen ID and 1 for mosquito
     return image
 
 def get_OCR_string(image):
-    OCR_model= torch.jit.load("models/crnn_OCR.ptl")
+    OCR_model= torch.jit.load("model/crnn_OCR.ptl")
     image = preprocess_OCR(image)
     return OCR_model(image)
     
