@@ -24,7 +24,7 @@ def load_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.jit.load('models/species_03_16_23.ptl', map_location = 'cpu')
+  model= torch.jit.load('model/species_03_16_23.ptl', map_location = 'cpu')
   model = model.to(device)
   return model
 
@@ -36,7 +36,7 @@ def load_yolo():
   Returns:
       yolo: A TorchHub model object representing the YOLOv5 model.
   """
-  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='models/YOLO_wlabel.pt', force_reload=True)
+  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/best.pt', force_reload=True)
   yolo.to('cpu')
   return yolo
 
