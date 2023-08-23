@@ -23,7 +23,7 @@ def load_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.load('models/best_species_fold5_08_23.pt', map_location = 'cpu')
+  model= torch.load('model/best_species_fold5_08_23.pt', map_location = 'cpu')
   model=model.module
   model = model.to(device)
   return model
@@ -36,7 +36,7 @@ def load_abd_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.load('models/best_abdomen_fold3_08_23.pt', map_location = 'cpu')
+  model= torch.load('model/best_abdomen_fold3_08_23.pt', map_location = 'cpu')
   model=model.module
   model = model.to(device)
   return model
@@ -49,7 +49,7 @@ def load_sex_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.load('models/best_sex_fold3_08_23.pt', map_location = 'cpu')
+  model= torch.load('model/best_sex_fold3_08_23.pt', map_location = 'cpu')
   model=model.module
   model = model.to(device)
   return model  
@@ -63,14 +63,14 @@ def load_yolo():
   Returns:
       yolo: A TorchHub model object representing the YOLOv5 model.
   """
-  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='models/YOLO_08_23.pt', force_reload=True)
+  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/YOLO_08_23.pt', force_reload=True)
   yolo.to('cpu')
   return yolo
 
 with st.spinner('Model is being loaded..'):
   model=load_model()
   abd_model=load_abd_model()
-  sex_model=load_sex_model()
+  #sex_model=load_sex_model()
  
 file = st.file_uploader("Upload the image to be classified", type=["jpg", "png"])
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -132,7 +132,7 @@ species_all = ["An. funestus",
 abdomen_all=["Unfed","Fully Fed","Gravid"]
 sex_all=["Female","Male"]                
 
-def upload_predict(upload_image, model):
+def upload_predict(upload_image, model,abd_model):
     """
     Perform image classification on a given image using a pre-trained model.
 
@@ -150,7 +150,7 @@ def upload_predict(upload_image, model):
     # Run the model
     output = model(img_tensor)
     abd_output=abd_model(img_tensor)
-    sex_output=sex_model(img_tensor)
+    #sex_output=sex_model(img_tensor)
     # get softmax of output
 
     output = F.softmax(output, dim=1)
@@ -167,12 +167,12 @@ def upload_predict(upload_image, model):
     pred_class1 = pred1.item()
     probab_value1 = probab1.item()
     #sex
-    probab2, pred2 = torch.max(sex_output, 1)
-    print(sex_output, pred2, probab2, probab2.item())
-    pred_class2 = pred2.item()
-    probab_value2 = probab2.item()
+    #probab2, pred2 = torch.max(sex_output, 1)
+    #print(sex_output, pred2, probab2, probab2.item())
+    #pred_class2 = pred2.item()
+    #probab_value2 = probab2.item()
     
-    return pred_class, probab_value,pred_class1, probab_value1,pred_class2, probab_value2
+    return pred_class, probab_value,pred_class1, probab_value1
 
 # Main code block
 
@@ -204,10 +204,10 @@ else:
     st.image(image_disp, use_column_width= False)
  
     ### CLASSIFY
-    label, score,label1, score1,label2, score2 = upload_predict(image, model)
+    label, score,label1, score1 = upload_predict(image, model)
     st.write("### Species: ",species_all[label])
     st.write(f"#### Confidence : {score*100:.2f} % ")
-    st.write("### Sex: ",sex_all[label2])
-    st.write(f"#### Confidence : {score2*100:.2f} % ")
+    #st.write("### Sex: ",sex_all[label2])
+    #st.write(f"#### Confidence : {score2*100:.2f} % ")
     st.write("### Abdomen: ",abdomen_all[label1])
     st.write(f"####  Confidence : {score1*100:.2f} % ")
