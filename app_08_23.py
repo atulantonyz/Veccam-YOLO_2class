@@ -23,7 +23,7 @@ def load_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.load('models/best_species_fold5_08_23.pt', map_location = 'cpu')
+  model= torch.load('model/best_species_fold5_08_23.pt', map_location = 'cpu')
   model=model.module
   model = model.to(device)
   return model
@@ -36,7 +36,7 @@ def load_abd_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.load('models/best_abdomen_fold3_08_23.pt', map_location = 'cpu')
+  model= torch.load('model/best_abdomen_fold3_08_23.pt', map_location = 'cpu')
   model=model.module
   model = model.to(device)
   return model
@@ -49,7 +49,7 @@ def load_sex_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.load('models/best_sex_fold3_08_23.pt', map_location = 'cpu')
+  model= torch.load('model/best_sex_fold3_08_23.pt', map_location = 'cpu')
   model=model.module
   model = model.to(device)
   return model  
@@ -63,7 +63,7 @@ def load_yolo():
   Returns:
       yolo: A TorchHub model object representing the YOLOv5 model.
   """
-  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='models/YOLO_08_23.pt', force_reload=True)
+  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/YOLO_08_23.pt', force_reload=True)
   yolo.to('cpu')
   return yolo
 
