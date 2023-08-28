@@ -15,7 +15,7 @@ st.write("""
 
 device=torch.device("cpu")
 
-@st.cache_resource
+@st.cache_resource(ttl=24*3600)
 def load_model():
   """
   Load PyTorch model from disk and move it to the appropriate device.
@@ -28,7 +28,7 @@ def load_model():
   model = model.to(device)
   return model
   
-@st.cache_resource
+@st.cache_resource(ttl=24*3600)
 def load_abd_model():
   """
   Load PyTorch model from disk and move it to the appropriate device.
@@ -41,7 +41,7 @@ def load_abd_model():
   model = model.to(device)
   return model
   
-@st.cache_resource
+@st.cache_resource(ttl=24*3600)
 def load_sex_model():
   """
   Load PyTorch model from disk and move it to the appropriate device.
@@ -55,7 +55,7 @@ def load_sex_model():
   return model  
   
 
-@st.cache_resource
+@st.cache_resource(ttl=24*3600)
 def load_yolo():
   """
   Loads a custom YOLOv5 model from a local path and sends it to the CPU.
