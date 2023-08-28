@@ -15,7 +15,7 @@ st.write("""
 
 device=torch.device("cpu")
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource(ttl=24*3600)
 def load_model():
   """
   Load PyTorch model from disk and move it to the appropriate device.
@@ -27,7 +27,7 @@ def load_model():
   model = model.to(device)
   return model
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource(ttl=24*3600)
 def load_yolo():
   """
   Loads a custom YOLOv5 model from a local path and sends it to the CPU.
