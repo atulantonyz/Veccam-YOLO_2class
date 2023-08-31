@@ -23,7 +23,7 @@ def load_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.jit.load('models/species_with_normalization_08_30_23.ptl', map_location = 'cpu')
+  model= torch.jit.load('model/species_with_normalization_08_30_23.ptl', map_location = 'cpu')
   model = model.to(device)
   return model
   
@@ -35,7 +35,7 @@ def load_abd_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.jit.load('models/abdomen_with_normalization_08_30_23.ptl', map_location = 'cpu')
+  model= torch.jit.load('model/abdomen_with_normalization_08_30_23.ptl', map_location = 'cpu')
   model = model.to(device)
   return model
   
@@ -47,7 +47,7 @@ def load_sex_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.jit.load('models/sex_with_normalization_08_30_23.ptl', map_location = 'cpu')
+  model= torch.jit.load('model/sex_with_normalization_08_30_23.ptl', map_location = 'cpu')
   model = model.to(device)
   return model
   
@@ -60,7 +60,7 @@ def load_yolo():
   Returns:
       yolo: A TorchHub model object representing the YOLOv5 model.
   """
-  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='models/YOLO_08_30.pt', force_reload=True)
+  yolo = torch.hub.load('ultralytics/yolov5', 'custom', path='model/YOLO_08_30.pt', force_reload=True)
   yolo.to('cpu')
   return yolo
 
@@ -146,7 +146,7 @@ def upload_predict(upload_image, model):
 
     # Run the model
     output = model(img_tensor)
- 
+    st.write(output.detach().numpy())
     # get softmax of output
 
     #output = F.softmax(output, dim=1)
