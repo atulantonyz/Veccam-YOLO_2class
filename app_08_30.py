@@ -24,6 +24,7 @@ def load_model():
       model (torch.nn.Module): The loaded PyTorch model.
   """
   model= torch.jit.load('model/species_with_normalization_08_30_23.ptl', map_location = 'cpu')
+  st.write('species_with_normalization_08_30_23.ptl')
   model = model.to(device)
   return model
   
@@ -36,6 +37,7 @@ def load_abd_model():
       model (torch.nn.Module): The loaded PyTorch model.
   """
   model= torch.jit.load('model/abdomen_with_normalization_08_30_23.ptl', map_location = 'cpu')
+  st.write('abdomen_with_normalization_08_30_23.ptl')
   model = model.to(device)
   return model
   
@@ -48,6 +50,7 @@ def load_sex_model():
       model (torch.nn.Module): The loaded PyTorch model.
   """
   model= torch.jit.load('model/sex_with_normalization_08_30_23.ptl', map_location = 'cpu')
+  st.write('sex_with_normalization_08_30_23.ptl')
   model = model.to(device)
   return model
   
@@ -65,6 +68,7 @@ def load_yolo():
   return yolo
 
 with st.spinner('Model is being loaded..'):
+  st.write("#### Models :")
   model=load_model()
   abd_model=load_abd_model()
   sex_model=load_sex_model()
