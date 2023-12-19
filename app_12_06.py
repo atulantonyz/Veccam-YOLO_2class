@@ -9,7 +9,7 @@ from util_functions import pad_image_to_square
 import cv2
  
 st.write("""
-         # VectorCAM webapp 08/30
+         # VectorCAM webapp 12/06
          """
          )
 
@@ -24,7 +24,7 @@ def load_model():
       model (torch.nn.Module): The loaded PyTorch model.
   """
   model= torch.jit.load('model/species_with_normalization_10_27_23.ptl', map_location = 'cpu')
-  st.write('species_with_normalization_08_30_23.ptl')
+  st.write('species_with_normalization_10_27_23.ptl')
   model = model.to(device)
   return model
   
