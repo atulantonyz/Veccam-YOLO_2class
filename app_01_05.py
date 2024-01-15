@@ -23,7 +23,7 @@ def load_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.jit.load('model/species_with_normalization_10_27_23.ptl', map_location = 'cpu')
+  model= torch.jit.load('model/species_with_normalization_01_05_24.ptl', map_location = 'cpu')
   st.write('species_with_normalization_10_27_23.ptl')
   model = model.to(device)
   return model
@@ -49,7 +49,7 @@ def load_sex_model():
   Returns:
       model (torch.nn.Module): The loaded PyTorch model.
   """
-  model= torch.jit.load('model/sex_with_normalization_08_30_23.ptl', map_location = 'cpu')
+  model= torch.jit.load('model/sex_with_normalization_01_05_24v2.ptl', map_location = 'cpu')
   st.write('sex_with_normalization_08_30_23.ptl')
   model = model.to(device)
   return model
