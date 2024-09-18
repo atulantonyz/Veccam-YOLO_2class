@@ -74,7 +74,6 @@ with st.spinner('Model is being loaded..'):
   sex_model=load_sex_model()
  
 file = st.file_uploader("Upload the image to be classified", type=["jpg", "png"])
-st.set_option('deprecation.showfileUploaderEncoding', False)
 
 
 basicTrans = transforms.Compose([ 
