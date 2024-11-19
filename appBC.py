@@ -11,7 +11,7 @@ import easyocr
 from ultralytics import YOLO
  
 st.write("""
-         # Echyallo - web app
+         # Ekyaalo - web app
          """
          )
 
