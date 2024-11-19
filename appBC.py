@@ -197,7 +197,7 @@ else:
     
     
 if file40x is None:
-    st.text(" ###### Please upload a 40x image file!")
+    st.text(" ###### Please upload a 20x image file!")
 else:
     ### PAD IMAGE
     image40xpnga = Image.open(file40x)
