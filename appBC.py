@@ -47,7 +47,6 @@ with st.spinner('Model is being loaded..'):
  
 file10x = st.file_uploader("Upload the 10x image for cluster detection", type=["jpg", "png"])
 file40x = st.file_uploader("Upload the 40x image for malignancy classification", type=["jpg", "png"])
-st.set_option('deprecation.showfileUploaderEncoding', False)
 
 
 basicTrans = transforms.Compose([ 
