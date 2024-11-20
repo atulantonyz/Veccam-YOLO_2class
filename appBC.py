@@ -212,7 +212,7 @@ else:
     #print(image40x.shape)
     #image40x=image40x[:,:,:3]
     #Choose size of center crop based on magnification
-    cc_size=(784 if mag=="40x" else 192 if mag=="10x" else 384)
+    cc_size=(768 if mag=="40x" else 192 if mag=="10x" else 384)
     image40x_c=center_crop(image40x,img_sz=cc_size)
     st.write("### Cropped and Padded Image")
     image_disp = image40x_c.copy()
