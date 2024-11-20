@@ -113,7 +113,7 @@ def yolo_crop(image):#0 for specimen ID and 1 for mosquito
 
     yolo = load_yolo()
     img_c=center_crop(image,img_sz=1920)
-    results = yolo.predict(img_c,conf=0.5)
+    results = yolo.predict(img_c,conf=0.5,iou=0.7)
     boxes=[]
     try: 
        # crop the image
