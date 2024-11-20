@@ -48,6 +48,11 @@ with st.spinner('Model is being loaded..'):
 file10x = st.file_uploader("Upload the 10x image for cluster detection", type=["jpg", "png"])
 file40x = st.file_uploader("Upload the 20x image for malignancy classification", type=["jpg", "png"])
 
+mag = st.selectbox(
+    "What is the magnification of the image ?",
+    ("10x", "20x", "40x"),
+)
+
 
 basicTrans = transforms.Compose([ 
                                 transforms.Resize([384,384]),
@@ -206,7 +211,9 @@ else:
     #image40x=np.array(image40x)
     #print(image40x.shape)
     #image40x=image40x[:,:,:3]
-    image40x_c=center_crop(image40x,img_sz=384)
+    #Choose size of center crop based on magnification
+    cc_size=(784 if mag=="40x" else 192 if mag=="10x" else 384)
+    image40x_c=center_crop(image40x,img_sz=cc_size)
     st.write("### Cropped and Padded Image")
     image_disp = image40x_c.copy()
     max_size = (400, 400)
